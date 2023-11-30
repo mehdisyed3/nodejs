@@ -1,63 +1,21 @@
-const http = require('http')
-const {readFileSync} = require('fs')
+const express = require('express')
+const app = express()
 
-
-// get all files
-const homePage = readFileSync('./navbar-app/index.html')
-const styles = readFileSync('./navbar-app/styles.css')
-const homeJavaScript = readFileSync('./navbar-app/browser-app.js')
-const homeLogo  = readFileSync('./navbar-app/logo.svg')
-
-
-const server = http.createServer((req,res)=>{
-  console.log('user hit the server')
-  if (req.url === '/about'){
-    
-    res.writeHead(200, {'content-type':'text/html'})
-    res.write('<p>this is the about page .. thanks for visiting.. will see you soon on the next page</p>')
-    
-    res.end()
-  }
-  else if (req.url === '/'){ 
-
-    res.writeHead(200,{'content-type':'text/html'})
-    // res.write('<h4> THIS IS THE HOME PAGE</h4>')
-    res.write(homePage)
-    
-    res.end()
-  }
-  else if (req.url === '/styles.css'){ 
-
-    res.writeHead(200,{'content-type':'text/css'})
-    res.write(styles)
-    
-    res.end()
-  }
-  else if (req.url === '/logo.svg'){ 
-
-    res.writeHead(200,{'content-type':'image/svg+xml'})
-    res.write(homeLogo)
-    
-    res.end()
-  }
-  else if (req.url === '/browser-app.js'){ 
-
-    res.writeHead(200,{'content-type':'text/javascript'})
-    res.write(homeJavaScript)
-    
-    res.end()
-  }
-  else{
-    res.writeHead(404,{'content-type':'text/html'})
-    res.write('<h4> THIS IS doesnt exist</h4>')
-    res.end()
-  
-  }
+app.get('/',(req,res)=>{
+  res.status(200).send('<h1>this is a home page</h1>')
 })
 
-server.listen(5000)
+app.get('/about',(req,res)=>{
+  res.status(200).send('<h1>this is the about page</h1>')
+})
+
+app.get('*',(req,res)=>{
+  res.status(404).send('<h1>this page does not exist</h1>')
+})
 
 
+app.listen(5000, ()=>{
+  console.log("app is being listened on 5000")
+})
 
-
-
+// WAtched till 5 hours
