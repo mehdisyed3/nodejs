@@ -15,6 +15,14 @@ const logger = (req,res,next)=>{
   
 }
 
+// instead of manually adding logger funciton (middleware) to each method/request
+// we can have the logger function  invoked on all automatically but using it in app.use
+// >>>>> app.use(logger) <<<<<<<
+
+// ideally all the app.use function are call before all the route function so that app.use is used by all the ones below
+
+// if we add a route in app.use('/api, logger) ... the middleware will be used only to routes starting with /api
+
 app.get('/',(req,res)=>{
   res.send('Home')
 })
@@ -27,4 +35,3 @@ app.listen(5000,()=>{
   console.log('app is being listened on port 5000')
 })
 
-// watched video tilll 6:28
