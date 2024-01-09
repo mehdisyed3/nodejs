@@ -81,4 +81,4 @@ app.listen(5000,()=>{
   console.log('app is being listened on port 5000')
 })
 
-// watched video tilll 7:20
+// watched video tilll 7:50
