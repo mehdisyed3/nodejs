@@ -23,8 +23,6 @@ app.post('/login',(req,res)=>{
 
 })
 
-
-
 app.post('/api/people',(req,res)=>{
   console.log(req.body)
   const {name} = req.body
@@ -38,6 +36,46 @@ app.post('/api/people',(req,res)=>{
   }
 
 })
+
+app.post('/api/postman/people',(req,res)=>{
+  const {name} = req?.body
+
+  if(!name){
+   return res.status(400).json({success:false, message:" PLEASE PROVIDE A NAME "})
+  }else{
+    return res.status(201).json({success:true, data:[...people, {id:Math.random(),name}]})
+  }
+
+})
+
+app.put('/api/people/:id',(req,res)=>{
+  const {name} = req?.body
+  const {id}= req.params
+
+  let updated = people.map(item =>{
+    if(item.id === Number(id)){
+       item.name = name
+    }
+    return item
+  })
+
+  res.status(201).json({succes:true, data:updated})
+  
+
+
+  console.log('>>> helllo')
+
+  // if(!name){
+  //  return res.status(400).json({success:false, message:" PLEASE PROVIDE A NAME "})
+  // }else{
+  //   return res.status(201).json({success:true, data:[...people, {id:Math.random(),name}]})
+  // }
+
+})
+
+
+
+
 
 app.listen(5000,()=>{
   console.log('app is being listened on port 5000')
